@@ -6,16 +6,18 @@ class App(tk.Frame):
         super().__init__(master)
         self.pack()
 
-        self.url = tk.Entry(width=41)
+        self.url = tk.Entry(width=41, font='Impact 20',justify='center')
         self.url.pack()
 
         # Create the application variable.
         self.contents = tk.StringVar()
         # Set it to some value.
         self.contents.set("Pegar link y despues Enter")
-
         self.url["textvariable"] = self.contents
-
+        def clearentry(event):
+            self.url.config(fg='black')
+            self.contents.set('')
+        self.url.bind('<1>',clearentry)
         # Define a callback for when the user hits return.
         # It prints the current value of the variable.
         self.url.bind('<Key-Return>',
