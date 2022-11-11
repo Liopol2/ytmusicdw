@@ -4,12 +4,9 @@ import platform,os
 #get environment variables
 usuario=os.getlogin()
 sistema=platform.system()
-musicfolder=''
-   
-if sistema == 'Windows':
-    musicfolder = os.path.join('C:\\Users\\',usuario,'Music')
-else:
-    musicfolder ='~/Music'
+#In case you want to change the output folder just change the next line and run the py file
+#Or install pyinstaller and run pyinstaller  -F -w ytmusicdw.py to generate a new binary on the dist folder
+musicfolder = os.path.join(os.path.expanduser('~'),'Music')
 
 class App(tk.Frame):
     def __init__(self, master):
@@ -17,7 +14,7 @@ class App(tk.Frame):
         self.pack()
 
         #url entry
-        self.url = tk.Entry(width=41, font='Impact 20',justify='center')
+        self.url = tk.Entry(width=41, font='20',justify='center')
         self.url.pack()
 
         #destination folder Label
@@ -52,9 +49,8 @@ class App(tk.Frame):
                     v=video.streams.filter(only_audio=True).order_by("abr").last()
                     v.download(output_path=musicfolder)
                 self.contents.set('Playlist Descargada')
-            case 61 | 43:
-                self.url.config(fg='green')            
-                link=link[0:42]
+            case 76 | 61 | 43:
+                self.url.config(fg='green')                            
                 yt = YouTube(link)
                 #Buscar audio de mas calidad
                 stream = yt.streams.filter(only_audio=True).order_by("abr").last()
