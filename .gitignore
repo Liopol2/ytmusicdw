@@ -6,3 +6,5 @@ tests.py
 ytmusicdw-minimal.py
 .gitignore
 ytmusicdw.spec
+minimal-linux
+minimal-win.exe
