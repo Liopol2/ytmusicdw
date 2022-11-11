@@ -4,3 +4,5 @@
 tkinter-minimal.spec
 tests.py
 ytmusicdw-minimal.py
+.gitignore
+ytmusicdw.spec
