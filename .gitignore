@@ -2,3 +2,5 @@
 /build
 /dist
 tkinter-minimal.spec
+tests.py
+ytmusicdw-minimal.py
