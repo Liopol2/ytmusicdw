@@ -1,9 +1,6 @@
 import tkinter as tk
 from pytube import YouTube,Playlist
-import platform,os 
-#get environment variables
-usuario=os.getlogin()
-sistema=platform.system()
+import os 
 #In case you want to change the output folder just change the next line and run the py file
 #Or install pyinstaller and run pyinstaller  -F -w ytmusicdw.py to generate a new binary on the dist folder
 musicfolder = os.path.join(os.path.expanduser('~'),'Music')
@@ -39,35 +36,24 @@ class App(tk.Frame):
                              self.validate_link)
     
     def validate_link(self,event):
-        link=self.contents.get()        
-        match len(link):
-            case 71 | 91:
-                self.url.config(fg='blue')
-                playlist=Playlist(self.contents.get())
-                for video in playlist.videos:
-                    self.contents.set('Descargando: ' + v.title)
-                    v=video.streams.filter(only_audio=True).order_by("abr").last()
-                    v.download(output_path=musicfolder)
-                self.contents.set('Playlist Descargada')
-            case 76 | 61 | 43:
-                self.url.config(fg='green')                            
-                yt = YouTube(link)
-                #Buscar audio de mas calidad
-                stream = yt.streams.filter(only_audio=True).order_by("abr").last()
-                #Descargar
-                stream.download(output_path=musicfolder)
-                self.contents.set('Cancion Descargada')
-            case 28:
-                self.url.config(fg='green')
-                yt = YouTube(link)
-                #Buscar audio de mas calidad
-                stream = yt.streams.filter(only_audio=True).order_by("abr").last()
-                #Descargar
-                stream.download(output_path=musicfolder)
-                self.contents.set('Cancion Descargada')
-            case _:
-                self.url.config(fg='red')
-                self.contents.set('Error')
+        link=self.contents.get() 
+        if 'playlist' in link:
+            self.url.config(fg='blue')
+            playlist=Playlist(self.contents.get())
+            for video in playlist.videos:
+                v=video.streams.filter(only_audio=True).order_by("abr").last()
+                v.download(output_path=musicfolder)
+            self.contents.set('Playlist Descargada')
+        elif len(link)>= 28:
+            self.url.config(fg='green')
+            yt = YouTube(link)
+            #Buscar audio de mas calidad
+            stream = yt.streams.filter(only_audio=True).order_by("abr").last()
+            #Descargar
+            stream.download(output_path=musicfolder)
+            self.contents.set('Cancion Descargada')
+        else:
+            self.contents.set('Error intente con otro link')
 root = tk.Tk()
 myapp = App(root)
 myapp.mainloop()
