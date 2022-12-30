@@ -3,7 +3,7 @@ from tkinter import filedialog
 from pytube import YouTube,Playlist
 import os 
 #In case you want to change the output folder just change the next line and run the py file
-#Or install pyinstaller and run pyinstaller  -F -w ytmusicdw.py to generate a new binary on the dist folder
+#Or install pyinstaller and run pyinstaller -F -w ytmusicdw.py to generate a new binary on the dist folder
 
 
 class App(tk.Frame):
@@ -12,7 +12,7 @@ class App(tk.Frame):
         self.pack()
         self.musicfolder = os.path.join(os.path.expanduser('~'),'Music')
         #url entry
-        self.url = tk.Entry(width=31, font='Impact 30',justify='center')
+        self.url = tk.Entry(width=31, font='Arial 30',justify='center')
         self.url.pack()
 
         #convert the
